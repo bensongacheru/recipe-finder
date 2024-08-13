@@ -1,35 +1,32 @@
-// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MealCard from './components/MealCard';
-import Cart from './components/Cart';
+import Favourites from './components/Favourites';
 import SearchBar from './components/SearchBar';
+import MealDetail from './components/MealDetail';
 
 const App = () => {
   const [meals, setMeals] = useState([]);
-  const [cart, setCart] = useState([]);
+  const [favourites, setFavourites] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedMeal, setSelectedMeal] = useState(null);
+  const [showFavourites, setShowFavourites] = useState(false);
 
   useEffect(() => {
     fetchMeals();
-  }, []);
+  }, [searchTerm]);
 
-  const fetchMeals = async (query = '') => {
+  const fetchMeals = async () => {
     try {
-      const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
+      const response = await axios.get(`https://www.themealdb.com/api/json/v1/1/search.php?s=${searchTerm}`);
       setMeals(response.data.meals);
     } catch (error) {
       console.error('Error fetching meals:', error);
     }
   };
 
-  useEffect(() => {
-    fetchMeals(searchTerm);
-  }, [searchTerm]);
-
-  const addToCart = (meal) => {
-    setCart([...cart, meal]);
+  const addToFavourites = (meal) => {
+    setFavourites([...favourites, meal]);
   };
 
   const handleMealClick = (id) => {
@@ -52,34 +49,46 @@ const App = () => {
         <p className="text-gray-600">Find and save your favorite recipes</p>
       </header>
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      {selectedMeal ? (
-        <div className="mb-8 p-4 border border-gray-300 rounded-lg bg-white shadow-md">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">{selectedMeal.strMeal}</h2>
-          <img src={selectedMeal.strMealThumb} alt={selectedMeal.strMeal} className="w-full h-64 object-cover mb-4" />
-          <p className="text-gray-800 mb-4">{selectedMeal.strInstructions}</p>
+      <div className="flex flex-col gap-4">
+        <div className="overflow-x-auto">
+          {selectedMeal ? (
+            <div className="flex-1 mb-8 p-4 border border-gray-300 rounded-lg bg-white shadow-md">
+              <MealDetail meal={selectedMeal} />
+              <button
+                onClick={() => setSelectedMeal(null)}
+                className="py-1 px-2 bg-red-500 text-white rounded hover:bg-red-600 transition-colors mt-4"
+              >
+                Back to List
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {meals && meals.map(meal => (
+                <MealCard
+                  key={meal.idMeal}
+                  meal={meal}
+                  addToFavourites={addToFavourites}
+                  onClick={() => handleMealClick(meal.idMeal)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+        <div className="text-center mt-4">
           <button
-            onClick={() => setSelectedMeal(null)}
-            className="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600 transition-colors"
+            onClick={() => setShowFavourites(!showFavourites)}
+            className="py-1 px-3 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
           >
-            Back to List
+            {showFavourites ? 'Hide Favourites' : 'Show Favourites'}
           </button>
+          {showFavourites && <Favourites favourites={favourites} />}
         </div>
-      ) : (
-        <div className="flex overflow-x-auto space-x-4 py-4">
-          {meals && meals.map(meal => (
-            <MealCard
-              key={meal.idMeal}
-              meal={meal}
-              addToCart={addToCart}
-              onClick={() => handleMealClick(meal.idMeal)}
-            />
-          ))}
-        </div>
-      )}
-      <Cart cart={cart} />
+      </div>
     </div>
   );
 };
 
 export default App;
+
+
 
