@@ -1,70 +1,80 @@
-# Getting Started with Create React App
+# Recipe Finder App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+The Recipe Finder App is a React application that allows users to search for recipes, view detailed information about selected meals, and manage a list of favorite recipes. The app supports user authentication using Firebase, including sign-up, log-in, and password reset functionalities.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Search for Recipes**: Users can search for recipes based on a search term.
+- **Meal Details**: Users can view detailed information about each meal, including ingredients and instructions.
+- **Favourites**: Users can add meals to their favorites list and toggle the visibility of this list.
+- **User Authentication**: Users can sign up, log in, and log out. Forgotten passwords can be reset via email.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Frontend**: React
+- **Backend**: The Meal Database API
+- **Authentication**: Firebase Authentication
+- **State Management**: React hooks (`useState`, `useEffect`, `useCallback`)
+- **HTTP Requests**: Axios
 
-### `npm test`
+## Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/yourusername/recipe-finder-app.git
+    cd recipe-finder-app
+    ```
 
-### `npm run build`
+2. **Install dependencies**:
+    ```bash
+    npm install
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Set up Firebase**:
+   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/).
+   - Add your Firebase configuration to the `firebaseConfig.js` file.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Start the development server**:
+    ```bash
+    npm start
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
 
-### `npm run eject`
+1. **Search for Recipes**: Use the search bar to find recipes by entering keywords.
+2. **View Meal Details**: Click on a meal card to see detailed information about the selected meal.
+3. **Add to Favourites**: Click on "Add to Favourites" button on a meal card to save it to your favorites list.
+4. **Manage Favourites**: Click "Show Favourites" to view your saved favorite recipes and toggle to hide them.
+5. **User Authentication**:
+   - **Sign Up**: Create a new account with email and password.
+   - **Log In**: Access your account using your email and password.
+   - **Log Out**: Sign out from your account.
+   - **Reset Password**: Request a password reset email if you've forgotten your password.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Components
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **App**: Main application component that handles state and rendering of other components.
+- **MealCard**: Displays a brief view of a meal with an option to add to favorites.
+- **MealDetail**: Shows detailed information about a selected meal.
+- **SearchBar**: Input component for searching recipes.
+- **Favourites**: Displays a list of favorite meals.
+- **SignUpModal**: Modal for user sign-up.
+- **Login**: Component for user log-in with an option to reset the password.
+- **ResetPassword**: Modal for resetting the user's password.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Contributing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+If you'd like to contribute to the development of this app, please fork the repository, make your changes, and submit a pull request. We welcome improvements and bug fixes!
 
-## Learn More
+## License
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Acknowledgements
 
-### Code Splitting
+- **Meal Database API**: For providing the meal data.
+- **Firebase**: For authentication services.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
